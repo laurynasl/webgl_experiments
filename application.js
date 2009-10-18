@@ -46,7 +46,8 @@ function getShader(gl, id) {
 }
 
 function renderStart() {
-  jQuery.getJSON('pyramid.json', null, ajaxHandler);
+  var name = (window.location.search.substring(1) || 'pyramid') + '.json';
+  jQuery.getJSON(name, null, ajaxHandler);
 }
 
 function ajaxHandler(data) {
@@ -116,7 +117,7 @@ function ajaxHandler(data) {
   var triColors = data.colors;
 
   var primType = gl.TRIANGLES;
-  var numVerticies = 12;
+  var numVerticies = triVerts.length / 3;
 
   // Create buffer names
   var quadBuffer = gl.createBuffer();
