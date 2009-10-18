@@ -46,6 +46,10 @@ function getShader(gl, id) {
 }
 
 function renderStart() {
+  jQuery.getJSON('pyramid.json', null, ajaxHandler);
+}
+
+function ajaxHandler(data) {
   var canvas = document.getElementById("canvas");
 
   var gl = null;
@@ -93,59 +97,23 @@ function renderStart() {
       //gl.uniform3fv(viewPositionUniform, new CanvasFloatArray(vpos));
   }
 
-  var quadVerts = [
-    -0.5,  0.5, 0.0,
-    -0.5, -0.5, 0.0,
-     0.5,  0.5, 0.0, 
-     0.5, -0.5, 0.0
-      ];
+  //var quadVerts = [
+    //-0.5,  0.5, 0.0,
+    //-0.5, -0.5, 0.0,
+     //0.5,  0.5, 0.0, 
+     //0.5, -0.5, 0.0
+      //];
 
 
+  //var triNormals = [
+  //0.0, 0.0, -1.0,
+  //0.0, 0.0, -1.0,
+  //0.0, 0.0, -1.0,
+  //0.0, 0.0, -1.0
+  //];
 
-
-    var triVerts = [ 
-                     0,  1,  0,
-                    -1, -1,  1,
-                     1, -1,  1,
-
-           0,  1,  0,
-          -1, -1, -1,
-           1, -1, -1,
-
-           0,  1,  0, 
-          -1, -1, -1, 
-          -1, -1,  1, 
-
-                     0,  1,  0,
-                     1, -1, -1,
-                     1, -1,  1 
-           ];
-
-
-  var triNormals = [
-  0.0, 0.0, -1.0,
-  0.0, 0.0, -1.0,
-  0.0, 0.0, -1.0,
-  0.0, 0.0, -1.0
-  ];
-
-  var triColors = [
-  1.0, 0.0, 0.0, 1.0,
-  1.0, 0.0, 0.0, 1.0,
-  1.0, 0.0, 0.0, 1.0,
-
-  0.0, 1.0, 0.0, 1.0,
-  0.0, 1.0, 0.0, 1.0,
-  0.0, 1.0, 0.0, 1.0,
-
-  0.0, 0.0, 1.0, 1.0,
-  0.0, 0.0, 1.0, 1.0,
-  0.0, 0.0, 1.0, 1.0,
-
-  0.6, 0.6, 0.6, 1.0,
-  0.6, 0.6, 0.6, 1.0,
-  0.6, 0.6, 0.6, 1.0
-  ];
+  var triVerts = data.verts;
+  var triColors = data.colors;
 
   var primType = gl.TRIANGLES;
   var numVerticies = 12;
@@ -155,7 +123,7 @@ function renderStart() {
 
   var triBuffers = { };
   triBuffers.vertex = gl.createBuffer();
-  triBuffers.normal = gl.createBuffer();
+  //triBuffers.normal = gl.createBuffer();
   triBuffers.color = gl.createBuffer();
 
   // Bind a buffer object to triBuffer
@@ -169,9 +137,9 @@ function renderStart() {
 
 
   // Same for the normals
-  gl.bindBuffer(gl.ARRAY_BUFFER, triBuffers.normal);
+  //gl.bindBuffer(gl.ARRAY_BUFFER, triBuffers.normal);
 
-  gl.bufferData(gl.ARRAY_BUFFER, new CanvasFloatArray(triNormals), gl.STATIC_DRAW);
+  //gl.bufferData(gl.ARRAY_BUFFER, new CanvasFloatArray(triNormals), gl.STATIC_DRAW);
 
   //gl.vertexAttribPointer(na, 1, gl.FLOAT, false, 0, 0);
   //gl.enableVertexAttribArray(na);
@@ -197,7 +165,8 @@ function renderStart() {
   
 
 
-  gl.clearColor(1.0, 1.0, 1.0, 1.0);
+  //gl.clearColor(1.0, 1.0, 1.0, 1.0);
+  gl.clearColor(0.0, 0.0, 0.0, 1.0);
   //gl.clearDepthf(1.0);
   //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   gl.enable(gl.DEPTH_TEST);
