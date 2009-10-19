@@ -130,9 +130,10 @@ function ajaxHandler(data) {
         triVerts.push(model.verts[j + 1 ] + ship.y);
         triVerts.push(model.verts[j + 2] + ship.z);
       }
-      for (j = 0; j < model.colors.length; j++) {
-        triColors.push(model.colors[j]);
-      }
+      //for (j = 0; j < model.colors.length; j++) {
+        //triColors.push(model.colors[j]);
+      //}
+      triColors = triColors.concat(model.colors);
     }
   }
 
