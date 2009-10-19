@@ -113,8 +113,28 @@ function ajaxHandler(data) {
   //0.0, 0.0, -1.0
   //];
 
-  var triVerts = data.verts;
-  var triColors = data.colors;
+  var triVerts = [];
+  var triColors = [];
+  if (data.verts) {
+    triVerts = data.verts;
+    triColors = data.colors;
+  }
+  else {
+    var i;
+    for (i=0; i<data.ships.length; i++) {
+      var ship = data.ships[i];
+      var model = data.models[ship.model];
+      var j;
+      for (j = 0; j < model.verts.length; j += 3) {
+        triVerts.push(model.verts[j + 0] + ship.x);
+        triVerts.push(model.verts[j + 1 ] + ship.y);
+        triVerts.push(model.verts[j + 2] + ship.z);
+      }
+      for (j = 0; j < model.colors.length; j++) {
+        triColors.push(model.colors[j]);
+      }
+    }
+  }
 
   var primType = gl.TRIANGLES;
   var numVerticies = triVerts.length / 3;
